@@ -11,10 +11,11 @@ public class MyDBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        const string connString = @"Host=localhost;Username=postgres;Password=postgres;Database=test01";
-        optionsBuilder
-            .UseNpgsql(connString)
-            .UseSnakeCaseNamingConvention();
+        string host = Environment.GetEnvironmentVariable("dotnet_app_host_type") == "docker" ? "db_container" : "localhost";
+        string connectionString = $"""
+			Host={host};Database=huit;Username=postgres;Password=postgres;Database=test01;
+			""";
+        optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
     }
 }
 
