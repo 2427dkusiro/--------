@@ -1,5 +1,4 @@
-CREATE DATABASE test01;
-USE test01;
+CREATE DATABASE IF NOT EXISTS test01;
 
 CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
     migration_id character varying(150) NOT NULL,
