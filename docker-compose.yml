@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:15.2
+    container_name: db_container
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./db_init:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+  api:
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - dotnet_app_host_type=docker
+    build:
+      context: .
+      dockerfile: DockerFile
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  dbdata:
