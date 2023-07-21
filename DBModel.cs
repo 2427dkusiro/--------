@@ -13,7 +13,7 @@ public class MyDBContext : DbContext
     {
         string host = Environment.GetEnvironmentVariable("dotnet_app_host_type") == "docker" ? "db_container" : "localhost";
         string connectionString = $"""
-			Host={host};Database=huit;Username=postgres;Password=postgres;Database=test01;
+			Host={host};Database=huit;Username=postgres;Password=postgres;
 			""";
         optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
     }
